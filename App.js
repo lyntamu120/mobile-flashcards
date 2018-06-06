@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import { FontAwesome, Entypo } from 'react-native-vector-icons';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
 import Deck from './components/Deck';
 import DeckList from './components/DeckList';
@@ -9,6 +11,7 @@ import NewCard from './components/NewCard';
 import NewDeck from './components/NewDeck';
 import Quiz from './components/Quiz';
 import{ getDecks, getDeck, saveDeckTitle, addCardToDeck } from './utils/helpers';
+import reducer from './reducers';
 
 const Tabs = createBottomTabNavigator({
   Decks: {
@@ -51,16 +54,18 @@ const RootStack = createStackNavigator({
 });
 
 export default class App extends React.Component {
-  componentDidMount() {
-    getDecks()
-      .then(addCardToDeck('React', {
-        question: 'What is gg?',
-        answer: 'Good Game'
-      }))
-  }
+  // componentDidMount() {
+  //   getDecks()
+  //     .then(addCardToDeck('React', {
+  //       question: 'What is gg?',
+  //       answer: 'Good Game'
+  //     }))
+  // }
   render() {
     return (
-      <RootStack />
+      <Provider store={createStore(reducer)}>
+        <RootStack />
+      </Provider>
     );
   }
 }

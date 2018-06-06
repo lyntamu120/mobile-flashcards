@@ -14,7 +14,7 @@ const data = {
   },
   JavaScript: {
     title: 'JavaScript',
-    question: [
+    questions: [
       {
         question: 'What is a closure?',
         answer: 'The combination of a function and the lexical enviroment with which that function was declared'
