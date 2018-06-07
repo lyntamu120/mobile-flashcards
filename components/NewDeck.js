@@ -18,7 +18,8 @@ class NewDeck extends Component {
         return dispatch(addDeck(deckName));
       })
       .catch(e => console.log('Error when saving new title', e));
-    // TODO: redirect to decksList
+    // Redirect to decksList
+    navigation.goBack();
   }
   onChangeText = (deckName) => {
     this.setState(() => ({ deckName }));
