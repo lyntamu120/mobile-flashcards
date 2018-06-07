@@ -1,12 +1,37 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+
+import { addDeck } from '../actions';
+import { saveDeckTitle } from '../utils/helpers';
 
 class NewDeck extends Component {
+  state = {
+    deckName: null
+  }
+  onSubmit = () => {
+    const { deckName } = this.state;
+    const { decks, dispatch, navigation } = this.props;
+    // Save to DB && Update the store
+    saveDeckTitle(deckName)
+      .then(() => {
+        return dispatch(addDeck(deckName));
+      })
+      .catch(e => console.log('Error when saving new title', e));
+    // TODO: redirect to decksList
+  }
+  onChangeText = (deckName) => {
+    this.setState(() => ({ deckName }));
+  }
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>What's the title of your new deck?</Text>
-        <TextInput style={styles.textInput} />
+        <TextInput
+          style={styles.textInput}
+          onChangeText={this.onChangeText}
+          value={this.state.deckName}
+        />
         <TouchableOpacity
           onPress={this.onSubmit}
           style={styles.button}
@@ -36,7 +61,9 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 2,
     marginTop: 40,
-    width: 280
+    width: 280,
+    padding: 1,
+    fontFamily: 'Cochin'
   },
   title: {
     fontSize: 40,
@@ -45,4 +72,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default NewDeck;
+function mapStateToProps(decks) {
+  return { decks }
+}
+
+export default connect(mapStateToProps)(NewDeck);

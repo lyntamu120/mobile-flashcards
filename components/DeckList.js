@@ -9,6 +9,7 @@ import DeckItem from './DeckItem';
 class DeckList extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
+    console.log(this.props);
     getDecks()
     .then(decksStr => {
       let decks = JSON.parse(decksStr);
@@ -17,7 +18,7 @@ class DeckList extends Component {
     .catch(e => console.log('Error in dispatch receiveDecks ', e));
   }
   render() {
-    const { decks } = this.props;
+    const { decks, navigation } = this.props;
     return (
       <View style={styles.container}>
         {
@@ -29,6 +30,7 @@ class DeckList extends Component {
                 numOfCards={num}
                 key={title}
                 style={styles.box}
+                navigate={navigation.navigate}
               />
             );
           })

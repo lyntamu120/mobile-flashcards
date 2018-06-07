@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 class DeckItem extends Component {
   render() {
-    const { title, numOfCards } = this.props;
+    const { title, numOfCards, navigate } = this.props;
     return (
-      <View style={styles.box}>
+      <TouchableOpacity
+        style={styles.box}
+        onPress={() => navigate('Deck', { title })}
+      >
         <Text style={[styles.text, {color: 'green'}]}>{ title }</Text>
         <Text style={styles.text}>{ numOfCards } cards</Text>
-      </View>
+      </TouchableOpacity>
     );
   }
 }

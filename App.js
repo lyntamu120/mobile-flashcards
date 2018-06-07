@@ -12,6 +12,7 @@ import NewDeck from './components/NewDeck';
 import Quiz from './components/Quiz';
 import{ getDecks, getDeck, saveDeckTitle, addCardToDeck } from './utils/helpers';
 import reducer from './reducers';
+import middleware from './middlewares';
 
 const Tabs = createBottomTabNavigator({
   Decks: {
@@ -54,16 +55,12 @@ const RootStack = createStackNavigator({
 });
 
 export default class App extends React.Component {
-  // componentDidMount() {
-  //   getDecks()
-  //     .then(addCardToDeck('React', {
-  //       question: 'What is gg?',
-  //       answer: 'Good Game'
-  //     }))
-  // }
+  componentDidMount() {
+    
+  }
   render() {
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={createStore(reducer, middleware)}>
         <RootStack />
       </Provider>
     );
