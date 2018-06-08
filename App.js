@@ -1,18 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import { FontAwesome, Entypo } from 'react-native-vector-icons';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import { Constants } from 'expo';
 
 import Deck from './components/Deck';
 import DeckList from './components/DeckList';
 import NewCard from './components/NewCard';
 import NewDeck from './components/NewDeck';
 import Quiz from './components/Quiz';
-import{ getDecks, getDeck, saveDeckTitle, addCardToDeck } from './utils/helpers';
+import{
+  getDecks,
+  getDeck,
+  saveDeckTitle,
+  addCardToDeck,
+  setLocalNotification } from './utils/helpers';
 import reducer from './reducers';
 import middleware from './middlewares';
+
+function FlashCardStatusBar({ backgroundColor, ...props }) {
+  return (
+    <View style={{backgroundColor, height: Constants.statusBarHeight}}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  );
+}
+
 
 const Tabs = createBottomTabNavigator({
   Decks: {
@@ -41,27 +56,50 @@ const Tabs = createBottomTabNavigator({
 
 const RootStack = createStackNavigator({
   Tabs: {
-    screen: Tabs
+    screen: Tabs,
+    navigationOptions: {
+      title: 'Home'
+    }
   },
   Quiz: {
-    screen: Quiz
+    screen: Quiz,
+    navigationOptions: {
+      title: 'Quiz'
+    }
   },
   Deck: {
-    screen: Deck
+    screen: Deck,
+    navigationOptions: {
+      title: 'Deck'
+    }
   },
   NewCard: {
-    screen: NewCard
+    screen: NewCard,
+    navigationOptions: {
+      title: 'NewCard'
+    }
+  }
+},
+{
+  navigationOptions: {
+    headerTintColor: 'white',
+    headerStyle: {
+      backgroundColor: 'purple'
+    }
   }
 });
 
 export default class App extends React.Component {
   componentDidMount() {
-    
+    setLocalNotification();
   }
   render() {
     return (
       <Provider store={createStore(reducer, middleware)}>
-        <RootStack />
+        <View style={{flex: 1}}>
+          <FlashCardStatusBar backgroundColor={'purple'} barStyle='light-content' />
+          <RootStack />
+        </View>
       </Provider>
     );
   }

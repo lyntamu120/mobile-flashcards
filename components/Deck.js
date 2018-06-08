@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
+import { removeLocalNotification, setLocalNotification } from '../utils/helpers';
+
 
 class Deck extends Component {
+  onStartQuiz = () => {
+    removeLocalNotification.then(setLocalNotification);
+    this.props.navigation.navigate('Quiz', { title });
+  }
   render() {
     const { decks } = this.props;
     const { title } = this.props.navigation.state.params;
@@ -20,7 +26,7 @@ class Deck extends Component {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => this.props.navigation.navigate('Quiz', { title })}
+          onPress={this.onStartQuiz}
         >
           <Text style={{ fontSize: 24 }}>Start Quiz</Text>
         </TouchableOpacity>
