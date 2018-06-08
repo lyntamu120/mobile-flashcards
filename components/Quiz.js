@@ -52,10 +52,10 @@ class Quiz extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            // onPress={() => this.setState((prevState) => ({
-            //   wrongNum: prevState.wrongNum + 1,
-            //   qIndex: prevState.qIndex + 1
-            // }))}
+            onPress={() => this.setState((prevState) => ({
+              wrongNum: prevState.wrongNum + 1,
+              qIndex: prevState.qIndex + 1
+            }))}
           >
             <Text style={{fontSize: 24}}>Incorrect</Text>
           </TouchableOpacity>

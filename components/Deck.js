@@ -14,7 +14,7 @@ class Deck extends Component {
         <Text style={styles.text}>{ numOfCards } cards</Text>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => this.props.navigation.navigate('NewCard')}
+          onPress={() => this.props.navigation.navigate('NewCard', { title })}
         >
           <Text style={{ fontSize: 24 }}>Add Card</Text>
         </TouchableOpacity>
