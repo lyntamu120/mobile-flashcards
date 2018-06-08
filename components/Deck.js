@@ -7,7 +7,8 @@ import { removeLocalNotification, setLocalNotification } from '../utils/helpers'
 
 class Deck extends Component {
   onStartQuiz = () => {
-    removeLocalNotification.then(setLocalNotification);
+    const { title } = this.props.navigation.state.params;
+    removeLocalNotification().then(setLocalNotification);
     this.props.navigation.navigate('Quiz', { title });
   }
   render() {

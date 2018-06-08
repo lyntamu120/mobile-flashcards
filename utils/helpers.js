@@ -60,8 +60,8 @@ function reateNotification() {
 }
 
 export function removeLocalNotification() {
-  AsyncStorage.removeItem(NOTIFICATION_KEY)
-    .then(Notificaions.cancelAllScheduledNotificationsAsync);
+  return AsyncStorage.removeItem(NOTIFICATION_KEY)
+    .then(Notifications.cancelAllScheduledNotificationsAsync);
 }
 
 export function setLocalNotification() {
